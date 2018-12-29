@@ -1,6 +1,5 @@
 package com.mrgreenstar.litclub.Entity;
 
-
 import javax.persistence.*;
 import java.util.List;
 

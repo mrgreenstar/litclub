@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
+import {Button} from 'reactstrap';
+import '../css/App.css';
 
 class App extends Component {
     state = {
@@ -13,7 +14,6 @@ class App extends Component {
                 if (response.ok) {
                     response.json()
                         .then((data) => this.setState({answer: data, isLoading: false, code: 200}));
-
                 }
                 else this.setState({isLoading: false, code: 404});
             });
@@ -33,6 +33,7 @@ class App extends Component {
                         {this.state.answer[key].toString()}
                     </div>
                 )}
+                <Button color="danger">Danger!</Button>
             </div>
         );
 
