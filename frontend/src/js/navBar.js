@@ -1,10 +1,7 @@
 import React from 'react';
 import {
-    Navbar,
-    NavbarBrand,
-    NavItem,
-    Nav,
-    NavLink
+    Navbar, NavbarBrand,
+    NavItem, Nav, NavLink
 } from 'reactstrap';
 
 class NavBar extends React.Component {
@@ -12,13 +9,13 @@ class NavBar extends React.Component {
         return (
             <div>
                 <Navbar color="light" light expand="md">
-                    <NavbarBrand>Test</NavbarBrand>
+                    <NavbarBrand>LitClub</NavbarBrand>
                     <Nav className="ml-auto">
                         <NavItem>
-                            <NavLink href="/user/1">user1</NavLink>
+                            <NavLink href="/users/1">user1</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/user/2">user2</NavLink>
+                            <NavLink href="/users/2">user2</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="/addUser">Add new user</NavLink>

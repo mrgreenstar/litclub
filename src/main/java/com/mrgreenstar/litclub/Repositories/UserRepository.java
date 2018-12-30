@@ -1,9 +1,8 @@
 package com.mrgreenstar.litclub.Repositories;
 
 import com.mrgreenstar.litclub.Entity.User;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@RepositoryRestResource
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findUserByEmailOrLogin(String email, String login);
 }

@@ -12,7 +12,7 @@ public class Review {
     @JoinColumn(name="userId")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="bookId")
     private Book book;
 

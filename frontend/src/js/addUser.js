@@ -25,7 +25,7 @@ class AddUser extends React.Component {
 
     handleSubmit(event) {
         /*
-        fetch("/addUser", {
+        fetch("/users", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
