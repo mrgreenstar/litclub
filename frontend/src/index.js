@@ -1,25 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Route} from 'react-router';
-import {BrowserRouter} from 'react-router-dom';
 import './css/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import App from './js/App';
-import NavBar from "./js/navBar";
-import AddUser from "./js/addUser";
-import OwnError from "./js/OwnError";
+import App from "./js/App";
 import * as serviceWorker from './js/serviceWorker';
 
-ReactDOM.render(<NavBar/>, document.getElementById("navbar"));
+//ReactDOM.render(<App/>, document.getElementById("navbar"));
 
 ReactDOM.render(
-    <BrowserRouter>
-        <div>
-            <Route path="/users/:id" component={App}/>
-            <Route path="/error" component={OwnError}/>
-            <Route path="/addUser" component={AddUser}/>
-        </div>
-    </BrowserRouter>,
+    <App/>,
     document.getElementById('root')
 );
 

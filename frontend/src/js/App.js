@@ -1,48 +1,41 @@
-import React, { Component } from 'react';
-import {Redirect} from 'react-router';
-import '../css/App.css';
+import React from 'react';
+import {
+    Navbar, NavbarBrand,
+    NavItem, Nav, NavLink
+} from 'reactstrap';
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import Users from "./users";
+import OwnError from "./OwnError";
+import AddUser from "./addUser";
 
-class App extends Component {
-    state = {
-        isLoading: true,
-        isErrorOccurred: false
-    };
 
-    async componentDidMount() {
-        const currId = window.location.href[window.location.href.length - 1];
-        await fetch("/users/" + currId)
-            .then((response) => {
-                if (response.ok) {
-                        response.json()
-                            .then((data) => this.setState({answer: data, isLoading: false, code: 200}))
-                            .catch(error => this.setState({isErrorOccurred: true, error: error}));
-                }
-                else this.setState({isLoading: false, code: 404});
-            });
-    }
-
+class App extends React.Component {
     render() {
-        if (this.state.isLoading && !this.state.isErrorOccurred) {
-            return <p>Loading...</p>
-        }
-        if (this.state.code === 404) {
-            return <p>This user doesn't exist</p>;
-        }
-
-        if (this.state.isErrorOccurred) {
-            console.log(this.state.error);
-            return <Redirect to="/error"/>
-        }
         return (
-            <div>
-                {Object.keys(this.state.answer).map((key) =>
-                    <div key={key}>
-                        <b>{key}</b>: {this.state.answer[key].toString()}
-                    </div>
-                )}
-            </div>
-        );
-
+            <BrowserRouter>
+                <div>
+                <Navbar color="light" light expand="md">
+                    <NavbarBrand>LitClub</NavbarBrand>
+                    <Nav className="ml-auto">
+                        <NavItem>
+                            <NavLink tag={Link} to="/users/1">user</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to="/users/2">user2</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to="/addUser">addnewuser</NavLink>
+                        </NavItem>
+                    </Nav>
+                </Navbar>
+                <Switch>
+                    <Route path="/users/:id" component={Users}/>
+                    <Route path="/error" component={OwnError}/>
+                    <Route path="/addUser" component={AddUser}/>
+                </Switch>
+                </div>
+            </BrowserRouter>
+        )
     }
 }
 
