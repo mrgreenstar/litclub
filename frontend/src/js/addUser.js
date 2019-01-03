@@ -4,6 +4,10 @@ import {
     Col, Alert
 } from 'reactstrap';
 
+/**
+ * Must fix bug: form's fields wouldn't reset if two or more users have been added
+ */
+
 class AddUser extends React.Component {
     constructor(props) {
         super(props);
@@ -23,9 +27,9 @@ class AddUser extends React.Component {
         this.setState({[event.target.name] : event.target.value});
     }
 
-    handleSubmit(event) {
-        /*
-        fetch("/users", {
+    async handleSubmit(event) {
+        event.preventDefault();
+        await fetch("/users", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -37,12 +41,11 @@ class AddUser extends React.Component {
                 email: this.state.email,
                 login: this.state.login,
                 password: this.state.password
+
             })
         });
-        */
-        event.preventDefault();
         this.setState({isUserCreated: true});
-        //this.props.history.push("/user/1");
+        this.props.history.push("/addUser");
     }
 
     render() {
@@ -55,7 +58,7 @@ class AddUser extends React.Component {
                 </Col>
             </FormGroup>
             <FormGroup row>
-                <Label sm={{size:2, offset: 1}}>Second name</Label>
+                <Label sm={{size:2, offset: 1}}>Last name</Label>
                 <Col sm={8}>
                     <Input type="text" name="lastName" placeholder="Your last name" onChange={this.handleChange}/>
                 </Col>

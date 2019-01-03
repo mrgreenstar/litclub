@@ -24,6 +24,7 @@ import java.util.List;
         add method for certain book's reviews
         add all links between entities
         add PUT requests for all entities
+
 */
 
 @RestController
@@ -50,9 +51,11 @@ public class ApiController {
     @PostMapping(path="/users")
     public ResponseEntity addUser(@RequestBody User newUser) {
         if (userRepository.findUserByEmailOrLogin(newUser.getEmail(), newUser.getLogin()) != null) {
+            log.error(newUser.getEmail());
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
         log.info(newUser.toString());
+        userRepository.save(newUser);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -74,6 +77,7 @@ public class ApiController {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
         log.info(newAuthor.toString());
+        authorRepository.save(newAuthor);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -95,6 +99,7 @@ public class ApiController {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
         log.info(newBook.toString());
+        bookRepository.save(newBook);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -115,6 +120,7 @@ public class ApiController {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
         log.info(newGenre.toString());
+        genreRepository.save(newGenre);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
