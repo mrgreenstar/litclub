@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -54,6 +55,7 @@ public class ApiController {
             log.error(newUser.getEmail());
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
+        newUser.setRegistrationDate(new Date());
         log.info(newUser.toString());
         userRepository.save(newUser);
         return new ResponseEntity(HttpStatus.CREATED);

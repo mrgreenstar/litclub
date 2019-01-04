@@ -5,8 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from "./js/App";
 import * as serviceWorker from './js/serviceWorker';
 
-//ReactDOM.render(<App/>, document.getElementById("navbar"));
-
 ReactDOM.render(
     <App/>,
     document.getElementById('root')

@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class Book {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     private String title;
@@ -32,6 +32,18 @@ public class Book {
     private List<Review> reviews;
 
     public Book() {}
+
+    public Book(String title, List<Author> authors, Date publicationDate,
+                String description, List<Genre> genres, List<Review> reviews) {
+        this.title = title;
+        this.authors = authors;
+        this.publicationDate = publicationDate;
+        this.description = description;
+        this.genres = genres;
+        // Here 200.0 is start rating for each book.
+        this.rating = 200.0;
+        this.reviews = reviews;
+    }
 
     public Long getId() {
         return id;

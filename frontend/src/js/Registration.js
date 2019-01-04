@@ -1,14 +1,17 @@
 import React from 'react';
 import {
-    Form, FormGroup, Label, Input, Button,
-    Col, Alert
+    Form, FormGroup, Label,
+    Input, Button, Col
 } from 'reactstrap';
+
+import Message from './Message';
 
 /**
  * Must fix bug: form's fields wouldn't reset if two or more users have been added
+ * Fields shouldn't be cleared if user wasn't added
  */
 
-class AddUser extends React.Component {
+class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,10 +20,12 @@ class AddUser extends React.Component {
             email: '',
             login: '',
             password: '',
-            isUserCreated: false
+            status: 200,
+            resultMessage: ""
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+
     }
 
     handleChange(event) {
@@ -41,16 +46,14 @@ class AddUser extends React.Component {
                 email: this.state.email,
                 login: this.state.login,
                 password: this.state.password
-
             })
-        });
-        this.setState({isUserCreated: true});
-        this.props.history.push("/addUser");
+        }).then((response) => this.setState({status: response.status}));
+
     }
 
     render() {
         const form =
-            <Form onSubmit={this.handleSubmit} method="POST">
+            <Form onSubmit={this.handleSubmit}>
             <FormGroup row>
                 <Label sm={{size:2, offset: 1}}>First name</Label>
                 <Col sm={8}>
@@ -87,25 +90,24 @@ class AddUser extends React.Component {
                 </Col>
             </FormGroup>
         </Form>;
-
-        if (this.state.isUserCreated) {
+        if (this.state.status === 201) {
             return (
                 <React.Fragment>
-                    <Message/>
+                    <Message message="User has been created" type="success"/>
                     {form}
                 </React.Fragment>
-            )
+            );
+        }
+        else if (this.state.status === 409) {
+            return (
+                <React.Fragment>
+                    <Message message="User has not been created. Try other login or email" type="danger"/>
+                    {form}
+                </React.Fragment>
+            );
         }
         return form;
     }
 }
 
-class Message extends React.Component {
-    render() {
-        return (
-            <Alert color="success">User has been added</Alert>
-        )
-    }
-}
-
-export default AddUser;
+export default Registration;

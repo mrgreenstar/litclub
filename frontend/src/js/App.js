@@ -6,7 +6,8 @@ import {
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import Users from "./users";
 import OwnError from "./OwnError";
-import AddUser from "./addUser";
+import Registration from "./Registration";
+import AddBook from "./AddBook";
 
 
 class App extends React.Component {
@@ -14,24 +15,25 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <div>
-                <Navbar color="light" light expand="md">
-                    <NavbarBrand>LitClub</NavbarBrand>
+                <Navbar color="light" light>
+                    <NavbarBrand tag={Link} to="/">LitClub</NavbarBrand>
                     <Nav className="ml-auto">
                         <NavItem>
                             <NavLink tag={Link} to="/users/1">user</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/users/2">user2</NavLink>
+                            <NavLink tag={Link} to="/addBook">Add new book</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/addUser">addnewuser</NavLink>
+                            <NavLink tag={Link} to="/registration">Registration</NavLink>
                         </NavItem>
                     </Nav>
                 </Navbar>
                 <Switch>
+                    <Route path="/addBook" component={AddBook}/>
                     <Route path="/users/:id" component={Users}/>
                     <Route path="/error" component={OwnError}/>
-                    <Route path="/addUser" component={AddUser}/>
+                    <Route path="/registration" component={Registration}/>
                 </Switch>
                 </div>
             </BrowserRouter>
