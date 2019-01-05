@@ -34,7 +34,7 @@ class Registration extends React.Component {
 
     async handleSubmit(event) {
         event.preventDefault();
-        await fetch("/users", {
+        await fetch("api/users", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

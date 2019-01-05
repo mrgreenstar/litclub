@@ -8,6 +8,7 @@ import Users from "./users";
 import OwnError from "./OwnError";
 import Registration from "./Registration";
 import AddBook from "./AddBook";
+import Books from './Books';
 
 
 class App extends React.Component {
@@ -22,6 +23,9 @@ class App extends React.Component {
                             <NavLink tag={Link} to="/users/1">user</NavLink>
                         </NavItem>
                         <NavItem>
+                            <NavLink tag={Link} to="/users/2">user2</NavLink>
+                        </NavItem>
+                        <NavItem>
                             <NavLink tag={Link} to="/addBook">Add new book</NavLink>
                         </NavItem>
                         <NavItem>
@@ -32,6 +36,7 @@ class App extends React.Component {
                 <Switch>
                     <Route path="/addBook" component={AddBook}/>
                     <Route path="/users/:id" component={Users}/>
+                    <Route path="/books" component={Books}/>
                     <Route path="/error" component={OwnError}/>
                     <Route path="/registration" component={Registration}/>
                 </Switch>

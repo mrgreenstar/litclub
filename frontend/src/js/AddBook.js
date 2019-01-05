@@ -15,15 +15,28 @@ class AddBook extends React.Component {
             selectedGenre: "",
             publicationDate: "",
             authors: "",
-            genres: ["novel", "poem", "fairy tail"]
+            genres: [],
+            selectedGenreId: 1,
+            isLoading: true
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidMount() {
+        fetch("api/genres")
+            .then((response) => {
+                if (response.ok) {
+                    response.json()
+                        .then((data) => this.setState({genres: data._embedded.genres, isLoading: false}))
+                        .catch((err) => this.setState({error: err}))
+                }
+            });
+    }
+
     async handleSubmit(event) {
         event.preventDefault();
-        await fetch("/books", {
+        await fetch("api/books", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -32,13 +45,19 @@ class AddBook extends React.Component {
             body: JSON.stringify({
                 title: this.state.title,
                 description: this.state.description,
-                genre: this.state.selectedGenre,
-                publicationDate: this.state.publicationDate
+                genres: {
+                    genreName: this.state.selectedGenre,
+                    id: this.state.selectedGenreId
+                },
+                publicationDate: this.state.publicationDate,
             })
         }).then((response) => this.setState({status: response.status}));
+        alert(this.state.status);
     }
 
     handleChange(event) {
+        if (event.target.name === "selectedGenre")
+            this.setState({selectedGenreId:event.target.options[event.target.options.selectedIndex].getAttribute('data-key')});
         this.setState({[event.target.name] : event.target.value});
     }
 
@@ -62,9 +81,9 @@ class AddBook extends React.Component {
                     <Col sm={{size: 6}}>
                         <Input type="select" name="selectedGenre" onChange={this.handleChange}>
                             {this.state.genres.map((genre) =>
-                                <option>
-                                    {genre}
-                                </option>
+                            <option key={genre.id} data-key={genre.id}>
+                                {genre.genreName}
+                            </option>
                             )}
                         </Input>
                     </Col>
@@ -97,7 +116,8 @@ class AddBook extends React.Component {
                 </React.Fragment>
             )
         }
-        else return form;
+        else if (!this.state.isLoading) return form;
+        else return <p>Loading...</p>
     }
 }
 

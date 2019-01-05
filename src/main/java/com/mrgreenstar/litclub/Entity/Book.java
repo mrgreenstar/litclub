@@ -20,11 +20,9 @@ public class Book {
 
     private String description;
 
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="book_genre", joinColumns=@JoinColumn(name="genre_id", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name = "book_id",
-                    referencedColumnName = "id"))
-    private List<Genre> genres;
+    @ManyToOne
+    @JoinColumn(name="genre_id")
+    private Genre genre;
 
     private Double rating;
 
@@ -34,12 +32,12 @@ public class Book {
     public Book() {}
 
     public Book(String title, List<Author> authors, Date publicationDate,
-                String description, List<Genre> genres, List<Review> reviews) {
+                String description, Genre genre, List<Review> reviews) {
         this.title = title;
         this.authors = authors;
         this.publicationDate = publicationDate;
         this.description = description;
-        this.genres = genres;
+        this.genre = genre;
         // Here 200.0 is start rating for each book.
         this.rating = 200.0;
         this.reviews = reviews;
@@ -85,12 +83,12 @@ public class Book {
         this.description = description;
     }
 
-    public List<Genre> getGenres() {
-        return genres;
+    public Genre getGenres() {
+        return genre;
     }
 
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
+    public void setGenres(Genre genres) {
+        this.genre = genres;
     }
 
     public Double getRating() {
@@ -99,6 +97,10 @@ public class Book {
 
     public void setRating(Double rating) {
         this.rating = rating;
+    }
+
+    public void setDefaultRating() {
+        this.rating = 200.0;
     }
 
     public List<Review> getReviews() {
@@ -117,7 +119,7 @@ public class Book {
                 ", authors=" + authors +
                 ", publicationDate=" + publicationDate +
                 ", description='" + description + '\'' +
-                ", genres=" + genres +
+                ", genre=" + genre +
                 ", rating=" + rating +
                 ", reviews=" + reviews +
                 '}';

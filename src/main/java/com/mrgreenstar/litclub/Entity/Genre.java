@@ -7,11 +7,11 @@ import java.util.List;
 public class Genre {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    private Long Id;
 
     private String genreName;
 
-    @ManyToMany(mappedBy = "genres")
+    @OneToMany(mappedBy = "genre")
     private List<Book> books;
 
     public Genre() {
@@ -22,11 +22,11 @@ public class Genre {
     }
 
     public Long getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getGenreName() {
@@ -48,7 +48,7 @@ public class Genre {
     @Override
     public String toString() {
         return "Genre{" +
-                "id=" + id +
+                "id=" + Id +
                 ", genreName='" + genreName + '\'' +
                 '}';
     }

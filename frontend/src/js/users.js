@@ -11,7 +11,6 @@ class Users extends Component {
             isLoading: true,
             isErrorOccurred: false
         };
-        this.parseUserInfo = this.parseUserInfo.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -26,11 +25,14 @@ class Users extends Component {
 
     async parseUserInfo() {
         const currId = this.props.match.params.id;
-        await fetch("/users/" + currId)
+        await fetch("../api/users/" + currId)
             .then((response) => {
                 if (response.ok) {
                     response.json()
-                        .then((data) => this.setState({answer: data, isLoading: false, code: 200}))
+                        // we need to set code: 200 in state because
+                        // if we wont and try to go from existing user to not existing user
+                        // we will get wrong info about user
+                        .then((data) => this.setState({userInfo: data, isLoading: false, code: 200}))
                         .catch(error => this.setState({isErrorOccurred: true, error: error}));
                 }
                 else this.setState({isLoading: false, code: 404});
@@ -44,22 +46,18 @@ class Users extends Component {
         if (this.state.code === 404) {
             return <p>This user doesn't exist</p>;
         }
-
         if (this.state.isErrorOccurred) {
-            console.log(this.state.error);
             return <Redirect to="/error"/>
         }
         return (
             <div>
-                {Object.keys(this.state.answer).map((key) =>
-                    <div key={key}>
-                        <b>{key}</b>: {this.state.answer[key].toString()}
-                    </div>
-
-                )}
+                <p>{this.state.userInfo.firstName}</p>
+                <p>{this.state.userInfo.lastName}</p>
+                <p>{this.state.userInfo.email}</p>
+                <p>{this.state.userInfo.password}</p>
+                <p>{this.state.userInfo.firstName}</p>
             </div>
         );
-
     }
 }
 
