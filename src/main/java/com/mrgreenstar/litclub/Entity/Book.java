@@ -18,6 +18,7 @@ public class Book {
     @Temporal(TemporalType.DATE)
     private Date publicationDate;
 
+    @Column(columnDefinition = "text")
     private String description;
 
     @ManyToOne
@@ -29,17 +30,19 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private List<Review> reviews;
 
-    public Book() {}
+    public Book() {
+        // Here 200.0 is start rating for each book.
+        this.rating = 200.0;
+    }
 
     public Book(String title, List<Author> authors, Date publicationDate,
-                String description, Genre genre, List<Review> reviews) {
+                String description, Double rating, Genre genre, List<Review> reviews) {
         this.title = title;
         this.authors = authors;
         this.publicationDate = publicationDate;
         this.description = description;
         this.genre = genre;
-        // Here 200.0 is start rating for each book.
-        this.rating = 200.0;
+        this.rating = rating;
         this.reviews = reviews;
     }
 

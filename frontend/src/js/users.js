@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router';
 import '../css/users.css';
+import {Col} from 'reactstrap';
 
 class Users extends Component {
     constructor(props) {
@@ -50,13 +51,13 @@ class Users extends Component {
             return <Redirect to="/error"/>
         }
         return (
-            <div>
+            <Col sm={{offset: 1}}>
                 <p>{this.state.userInfo.firstName}</p>
                 <p>{this.state.userInfo.lastName}</p>
                 <p>{this.state.userInfo.email}</p>
                 <p>{this.state.userInfo.password}</p>
                 <p>{this.state.userInfo.firstName}</p>
-            </div>
+            </Col>
         );
     }
 }

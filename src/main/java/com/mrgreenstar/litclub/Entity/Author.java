@@ -7,27 +7,32 @@ import java.util.List;
 @Entity
 public class Author {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long Id;
 
     private String firstName;
     private String lastName;
+
     @Temporal(TemporalType.DATE)
     private Date birthday;
+
+    @Temporal(TemporalType.DATE)
+    private Date deathDate;
+
     private String biography;
 
     @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="author_book", joinColumns=@JoinColumn(name="book_id", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name = "author_id",
+    @JoinTable(name="author_book", joinColumns=@JoinColumn(name="author_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="book_id",
                     referencedColumnName = "id"))
     private List<Book> books;
 
     public Long getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getFirstName() {
@@ -54,6 +59,14 @@ public class Author {
         this.birthday = birthday;
     }
 
+    public Date getDeathDate() {
+        return deathDate;
+    }
+
+    public void setDeathDate(Date deathDate) {
+        this.deathDate = deathDate;
+    }
+
     public String getBiography() {
         return biography;
     }
@@ -73,10 +86,11 @@ public class Author {
     @Override
     public String toString() {
         return "Author{" +
-                "id=" + id +
+                "id=" + Id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthday=" + birthday +
+                ", deathDate=" + deathDate +
                 ", biography='" + biography + '\'' +
                 ", books=" + books +
                 '}';
