@@ -7,8 +7,8 @@ import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import Users from "./users";
 import OwnError from "./OwnError";
 import Registration from "./Registration";
-import AddBook from "./AddBook";
-import AddAuthor from "./AddAuthor";
+import AddBook from "./add/AddBook";
+import AddAuthor from "./add/AddAuthor";
 import Books from './Books';
 
 

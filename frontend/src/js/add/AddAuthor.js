@@ -4,7 +4,7 @@ import {
     Label, Row, Col, Button
 } from 'reactstrap';
 
-import Message from './Message';
+import Message from '../Message';
 
 class AddAuthor extends React.Component {
     constructor(props) {
@@ -37,6 +37,13 @@ class AddAuthor extends React.Component {
                         biography: this.state.biography
                     })
             }).then((response) => this.setState({status: response.status}))
+        this.setState({
+            authorFirstName: '',
+            authorLastName: '',
+            birthDay: '',
+            deathDate: '',
+            biography: ''
+        });
     }
 
     handleChange(event) {

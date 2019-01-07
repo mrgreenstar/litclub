@@ -4,7 +4,7 @@ import {
     FormGroup, Label, Input
 } from 'reactstrap';
 
-import Message from './Message';
+import Message from '../Message';
 
 class AddBook extends React.Component {
     constructor(props) {
@@ -46,7 +46,7 @@ class AddBook extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         // Add new book to database
-        await fetch("api/books", {
+        await fetch("/books", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -64,6 +64,7 @@ class AddBook extends React.Component {
         }).then((response) =>
             this.setState({response: response})
         );
+
         // Get link of selected author
         await this.state.response.json().then((response) => this.setState({
             authorLink: response._links.authors.href,
