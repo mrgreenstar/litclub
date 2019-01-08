@@ -26,7 +26,7 @@ class Users extends Component {
 
     async parseUserInfo() {
         const currId = this.props.match.params.id;
-        await fetch("../users/" + currId)
+        await fetch("../api/users/" + currId)
             .then((response) => {
                 if (response.ok) {
                     response.json()

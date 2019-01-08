@@ -11,7 +11,7 @@ class Books extends React.Component {
             .then((response) => {
                 if (response.ok) {
                     response.json()
-                        .then((data) => this.setState({data: data, isLoading: false}))
+                        .then((data) => this.setState({data: data._embedded.books, isLoading: false}))
                         .catch((err) => this.setState({error: err}));
                 }
             });

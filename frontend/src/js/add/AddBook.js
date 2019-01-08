@@ -46,7 +46,7 @@ class AddBook extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         // Add new book to database
-        await fetch("/books", {
+        await fetch("api/books", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -65,7 +65,7 @@ class AddBook extends React.Component {
             this.setState({response: response})
         );
 
-        // Get link of selected author
+        // Get href of selected author and href to book
         await this.state.response.json().then((response) => this.setState({
             authorLink: response._links.authors.href,
             bookLink: response._links.book.href

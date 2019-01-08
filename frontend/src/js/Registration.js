@@ -37,7 +37,7 @@ class Registration extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         if (this.state.password === this.state.passwordRepeat && this.state.password.length > 1) {
-            await fetch("/users", {
+            await fetch("api/users", {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
@@ -122,7 +122,7 @@ class Registration extends React.Component {
                 </React.Fragment>
             );
         }
-        else if (this.state.status === 409) {
+        else if (this.state.status === 400) {
             return (
                 <React.Fragment>
                     <Message message="User has not been created. Login or email is already used" type="danger"/>

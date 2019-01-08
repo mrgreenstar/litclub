@@ -36,7 +36,7 @@ class AddAuthor extends React.Component {
                         deathDate: this.state.deathDate,
                         biography: this.state.biography
                     })
-            }).then((response) => this.setState({status: response.status}))
+            }).then((response) => this.setState({status: response.status}));
         this.setState({
             authorFirstName: '',
             authorLastName: '',
@@ -98,7 +98,7 @@ class AddAuthor extends React.Component {
         if (this.state.status === 200) {
             return form;
         }
-        if (this.state.status === 501) {
+        if (this.state.status === 409) {
             return (
                 <React.Fragment>
                     <Message message="Some problems occurred. Author hasn't been added" type="danger"/>
