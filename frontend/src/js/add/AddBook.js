@@ -62,26 +62,29 @@ class AddBook extends React.Component {
                 publicationDate: this.state.publicationDate,
             })
         }).then((response) =>
-            this.setState({response: response})
+            this.setState({
+                response: response,
+                status: response.status
+            })
         );
-
         // Get href of selected author and href to book
-        await this.state.response.json().then((response) => this.setState({
-            authorLink: response._links.authors.href,
-            bookLink: response._links.book.href
-        }));
-
-        // Add link between book and author
-        // POST to api/authors/{id}/books with body {api/books/{bookId}}
-        await fetch("api/authors/" + this.state.selectedAuthorId + "/books", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': "text/uri-list"
-            },
-            body: this.state.bookLink
-        }).then((response) => this.setState({status: response.status}))
-            .catch((err) => this.setState({error: err}));
+        if (this.state.status === 201) {
+            await this.state.response.json().then((response) => this.setState({
+                authorLink: response._links.authors.href,
+                bookLink: response._links.book.href
+            }));
+            // Add link between book and author
+            // POST to api/authors/{id}/books with body {api/books/{bookId}}
+            await fetch("api/authors/" + this.state.selectedAuthorId + "/books", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': "text/uri-list"
+                },
+                body: this.state.bookLink
+            }).then((response) => this.setState({status: response.status}))
+                .catch((err) => this.setState({error: err}));
+        }
     }
 
     handleChange(event) {
@@ -154,7 +157,7 @@ class AddBook extends React.Component {
                 </React.Fragment>
             )
         }
-        else if (this.state.status === 409) {
+        else if (this.state.status === 400) {
             return (
                 <React.Fragment>
                     <Message message="This book already in database" type="warning"/>

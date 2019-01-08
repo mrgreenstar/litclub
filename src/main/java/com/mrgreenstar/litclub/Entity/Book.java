@@ -2,7 +2,7 @@ package com.mrgreenstar.litclub.Entity;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Book {
@@ -13,7 +13,7 @@ public class Book {
     private String title;
 
     @ManyToMany(mappedBy="books")
-    private List<Author> authors;
+    private Set<Author> authors;
 
     @Temporal(TemporalType.DATE)
     private Date publicationDate;
@@ -28,15 +28,15 @@ public class Book {
     private Double rating;
 
     @OneToMany(mappedBy = "book")
-    private List<Review> reviews;
+    private Set<Review> reviews;
 
     public Book() {
         // Here 200.0 is start rating for each book.
         this.rating = 200.0;
     }
 
-    public Book(String title, List<Author> authors, Date publicationDate,
-                String description, Double rating, Genre genre, List<Review> reviews) {
+    public Book(String title, Set<Author> authors, Date publicationDate,
+                String description, Double rating, Genre genre, Set<Review> reviews) {
         this.title = title;
         this.authors = authors;
         this.publicationDate = publicationDate;
@@ -62,11 +62,11 @@ public class Book {
         this.title = title;
     }
 
-    public List<Author> getAuthors() {
+    public Set<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<Author> authors) {
+    public void setAuthors(Set<Author> authors) {
         this.authors = authors;
     }
 
@@ -86,12 +86,12 @@ public class Book {
         this.description = description;
     }
 
-    public Genre getGenres() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenres(Genre genres) {
-        this.genre = genres;
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 
     public Double getRating() {
@@ -106,11 +106,11 @@ public class Book {
         this.rating = 200.0;
     }
 
-    public List<Review> getReviews() {
+    public Set<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<Review> reviews) {
+    public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
     }
 

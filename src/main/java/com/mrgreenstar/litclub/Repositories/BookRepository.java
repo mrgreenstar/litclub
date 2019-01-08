@@ -1,14 +1,12 @@
 package com.mrgreenstar.litclub.Repositories;
 
-import com.mrgreenstar.litclub.Entity.Author;
 import com.mrgreenstar.litclub.Entity.Book;
 import com.mrgreenstar.litclub.Entity.Genre;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+import java.util.Set;
 
 public interface BookRepository extends CrudRepository<Book, Long> {
-    List<Book> findAll();
-    List<Book> findByGenre(Genre genre);
-    Book findBookByTitleAndAuthors(String title, List<Author> authors);
+    Set<Book> findAll();
+    boolean existsByTitleAndGenre(String title, Genre genre);
 }

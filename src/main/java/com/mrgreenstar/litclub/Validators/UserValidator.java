@@ -1,4 +1,4 @@
-package com.mrgreenstar.litclub;
+package com.mrgreenstar.litclub.Validators;
 
 import com.mrgreenstar.litclub.Entity.User;
 import com.mrgreenstar.litclub.Repositories.UserRepository;
@@ -27,7 +27,7 @@ public class UserValidator implements Validator {
         if (userRepository.existsByEmail(user.getEmail())) {
             errors.rejectValue("email", "email.taken");
         }
-        if (userRepository.findUserByLogin(user.getLogin()) != null) {
+        if (userRepository.existsByLogin(user.getLogin())) {
             errors.rejectValue("login", "login.taken");
         }
     }

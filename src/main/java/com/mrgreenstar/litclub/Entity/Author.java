@@ -2,7 +2,7 @@ package com.mrgreenstar.litclub.Entity;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Author {
@@ -25,7 +25,7 @@ public class Author {
     @JoinTable(name="author_book", joinColumns=@JoinColumn(name="author_id", referencedColumnName="id"),
             inverseJoinColumns=@JoinColumn(name="book_id",
                     referencedColumnName = "id"))
-    private List<Book> books;
+    private Set<Book> books;
 
     public Long getId() {
         return Id;
@@ -75,11 +75,11 @@ public class Author {
         this.biography = biography;
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 
