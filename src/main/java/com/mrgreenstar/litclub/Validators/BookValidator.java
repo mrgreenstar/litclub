@@ -1,6 +1,5 @@
 package com.mrgreenstar.litclub.Validators;
 
-import com.mrgreenstar.litclub.Entity.Author;
 import com.mrgreenstar.litclub.Entity.Book;
 import com.mrgreenstar.litclub.Repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;

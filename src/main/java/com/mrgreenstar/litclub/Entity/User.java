@@ -1,11 +1,17 @@
 package com.mrgreenstar.litclub.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 public class User {
+    private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,6 +21,8 @@ public class User {
 
     private String email;
     private String login;
+
+    @JsonIgnore
     private String password;
 
     @Temporal(TemporalType.DATE)
@@ -33,7 +41,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.login = login;
-        this.password = password;
+        setPassword(password);
         this.registrationDate = registrationDate;
         this.reviews = reviews;
     }
@@ -83,7 +91,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = PASSWORD_ENCODER.encode(password);
     }
 
     public Date getRegistrationDate() {

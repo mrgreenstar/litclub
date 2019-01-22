@@ -8,9 +8,8 @@ import Message from './Message';
 
 /**
  * Must fix bug: form's fields wouldn't reset if two or more users have been added
- * Fields shouldn't be cleared if user wasn't added
+ * Fields shouldn't be cleared if user wasn't registred
  */
-
 
 class Registration extends React.Component {
     constructor(props) {
@@ -56,8 +55,11 @@ class Registration extends React.Component {
             this.setState({
                 wasPasswordProblemsFound: true,
             });
+
         }
     }
+
+
 
     render() {
         const form = (
@@ -65,37 +67,43 @@ class Registration extends React.Component {
                 <FormGroup row>
                     <Label sm={{size:2, offset: 1}}>First name</Label>
                     <Col sm={8}>
-                        <Input type="text" name="firstName" placeholder="Your first name" onChange={this.handleChange}/>
+                        <Input type="text" name="firstName" placeholder="Your first name"
+                               onChange={this.handleChange} value={this.state.firstName} required/>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label sm={{size:2, offset: 1}}>Last name</Label>
                     <Col sm={8}>
-                        <Input type="text" name="lastName" placeholder="Your last name" onChange={this.handleChange}/>
+                        <Input type="text" name="lastName" placeholder="Your last name"
+                               onChange={this.handleChange} value={this.state.lastName} required/>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label sm={{size:2, offset: 1}}>Email</Label>
                     <Col sm={8}>
-                        <Input type="email" name="email" placeholder="Type your email here" onChange={this.handleChange}/>
+                        <Input type="email" name="email" placeholder="Type your email here"
+                               onChange={this.handleChange} value={this.state.email} required/>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label sm={{size:2, offset: 1}}>Login</Label>
                     <Col sm={8}>
-                        <Input type="text" name="login" placeholder="Type your login here" onChange={this.handleChange}/>
+                        <Input type="text" name="login" placeholder="Type your login here"
+                               onChange={this.handleChange} value={this.state.login} required/>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label sm={{size:2, offset: 1}}>Password</Label>
                     <Col sm={8}>
-                        <Input type="text" name="password" placeholder="Type your password here" onChange={this.handleChange}/>
+                        <Input type="password" name="password" placeholder="Type your password here"
+                               onChange={this.handleChange} value={this.state.password} required/>
                     </Col>
                 </FormGroup>
                     <FormGroup row>
                         <Label sm={{size:2, offset: 1}}>Repeat your password</Label>
                         <Col sm={8}>
-                            <Input type="text" name="passwordRepeat" placeholder="Repeat password" onChange={this.handleChange}/>
+                            <Input type="password" name="passwordRepeat" placeholder="Repeat password"
+                                   onChange={this.handleChange} required/>
                         </Col>
                     </FormGroup>
                 <FormGroup check row>
@@ -109,7 +117,7 @@ class Registration extends React.Component {
         if (this.state.wasPasswordProblemsFound) {
             return (
                 <React.Fragment>
-                    <Message message="Please check your password. Probably it's too short or has been typed wrong" type="danger"/>
+                    <Message message="Please check your password. Probably it's too short or typed wrong" type="danger"/>
                     {form}
                 </React.Fragment>
             );
